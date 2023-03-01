@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,15 @@ Route::get('/', function () {
     return view('home');
 });
 
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [FileController::class, 'index'])->name('files');
 });
+
+Route::get('/files', [FileController::class, 'index']);
+Route::post('/files', [FileController::class, 'store']);
+Route::get('/files/add', [FileController::class, 'addFile']);
