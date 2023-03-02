@@ -18,15 +18,9 @@ Route::get('/', function () {
     return view('home');
 });
 
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', [FileController::class, 'index'])->name('files');
-});
-
-Route::get('/files', [FileController::class, 'index']);
-Route::post('/files', [FileController::class, 'store']);
-Route::get('/files/add', [FileController::class, 'addFile']);
+Route::get('/dashboard', [FileController::class, 'index'])->middleware('auth');
+// Route::get('/files', [FileController::class, 'index'])->middleware('auth');
+Route::post('/files', [FileController::class, 'store'])->middleware('auth');
+Route::get('/files/add', [FileController::class, 'addFile'])->middleware('auth');
+Route::get('/files/download/{filename}', [FileController::class, 'download'])->middleware('auth');
+Route::delete('/files/{filename}', [FileController::class, 'destroy'])->middleware('auth');

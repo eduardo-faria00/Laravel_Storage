@@ -31,10 +31,32 @@ class FileController extends Controller
     {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $extension = $file->extension();
-            $filename = $file->getClientOriginalName() . strtotime('now');
+            $filename = $file->getClientOriginalName();
             $file->move(public_path('uploads'), $filename);
         }
-        return redirect('/files');
+        return redirect('/dashboard');
+    }
+
+    public function download($filename)
+    {
+        $file_path = public_path('uploads/' . $filename);
+
+        if (file_exists($file_path)) {
+            return response()->download($file_path);
+        } else {
+            return redirect('/dashboard')->with('Erro', 'Arquivo não encontrado');
+        }
+    }
+
+    public function destroy($filename)
+    {
+        $file_path = public_path('uploads/' . $filename);
+
+        if (file_exists($file_path)) {
+            unlink($file_path);
+            return redirect('/dashboard')->with('msg', 'Excluido com sucesso');
+        } else {
+            return redirect('/dashboard')->with('msg', 'Arquivo não encontrado');
+        }
     }
 }

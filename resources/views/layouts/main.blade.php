@@ -21,7 +21,7 @@
 
             @auth
                 <li class="h-full hover:border-b-2 hover:border-violet-500 hover:text-violet-500 transition-colors"><a
-                        href="/files" class="h-full flex items-center">
+                        href="/dashboard" class="h-full flex items-center">
                         <ion-icon name="documents-outline" class="text-3xl"></ion-icon>
                     </a></li>
                 <form action="/logout" method="POST"
@@ -46,6 +46,11 @@
             @endguest
         </ul>
     </nav>
+    @if (session('msg'))
+        <script>
+            alert({{ session('msg') }})
+        </script>
+    @endif
     @yield('content')
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </body>
