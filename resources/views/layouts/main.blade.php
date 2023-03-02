@@ -46,11 +46,11 @@
             @endguest
         </ul>
     </nav>
-    @if (session('msg'))
-        <script>
-            alert({{ session('msg') }})
-        </script>
-    @endif
+    {{-- @if (session('msg'))
+        <p class="w-full py-2 px-3 flex justify-between font-bold text-xl bg-green-700 transition-all">
+            {{ session('msg') }}
+        </p>
+    @endif --}}
     @yield('content')
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </body>
