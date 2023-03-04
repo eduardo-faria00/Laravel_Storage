@@ -13,6 +13,6 @@ class FileLikeController extends Controller
     public function __invoke(Files $file)
     {
         $file->like();
-        return redirect()->back();
+        return redirect('dashboard');
     }
 }

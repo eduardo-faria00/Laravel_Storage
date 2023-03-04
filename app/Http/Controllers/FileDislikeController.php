@@ -13,6 +13,6 @@ class FileDislikeController extends Controller
     public function __invoke(Files $file)
     {
         $file->dislike();
-        return redirect()->back();
+        return redirect('dashboard');
     }
 }
