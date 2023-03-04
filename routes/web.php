@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\FileDislikeController;
+use App\Http\Controllers\FileLikeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,11 +17,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.register');
+    return redirect('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
-
+Route::get('/dashboard', [FileController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/file/create', [FileController::class, 'create'])->name('file.create')->middleware('auth');
+Route::get('/files/download/{filename}', [FileController::class, 'download'])->middleware('auth');
+Route::delete('/files/{id}', [FileController::class, 'destroy'])->middleware('auth');
+Route::post('/files', [FileController::class, 'store'])->name('file.store')->middleware('auth');
+Route::post('/files/{file}/like', [FileLikeController::class])->name('file.like')->middleware('auth');
+Route::post('/files/{file}/dislike', [FileDislikeController::class])->name('file.dislike')->middleware('auth');

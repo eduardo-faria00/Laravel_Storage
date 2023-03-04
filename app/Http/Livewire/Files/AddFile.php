@@ -3,16 +3,13 @@
 namespace App\Http\Livewire\Files;
 
 use Livewire\Component;
+use App\Models\Files;
+use App\Models\User;
 
 class AddFile extends Component
 {
-    public $file;
-    public $user;
-
-    protected $rules = [
-        'file' => 'file',
-        'user' => 'user'
-    ];
+    public Files $file;
+    public User $user;
 
     public function render()
     {
